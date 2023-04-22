@@ -20,28 +20,41 @@ router.post('/sign-up', async (req, res, next) => {
   try {
     const { username, password, email } = req.body;
 
-    if(!username || !email || !password) {
-      res.render('auth/signup-form', { errorMessage: "Por favor rellena todos los campos."})
+    if (!username || !email || !password) {
+      res.render('auth/signup-form', { errorMessage: "Por favor rellena todos los campos." })
       return
     }
 
-    const user = await User.findOne({ $or: [{ username }, { email }] }); 
-    if(user){
-      res.render('auth/signup-form', { errorMessage: "El usuario y/o el email están en uso."})
+    // make sure passwords are strong:
+    const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+    if (!regex.test(password)) {
+      res
+        .status(500)
+        .render('auth/signup-form', { errorMessage: 'Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.' });
+      return;
+    }
+
+    const user = await User.findOne({ $or: [{ username }, { email }] });
+    if (user) {
+      res.render('auth/signup-form', { errorMessage: "El usuario y/o el email están en uso." })
       return
     }
     const salt = bcrypt.genSaltSync(saltRounds);
     const hashedPassword = bcrypt.hashSync(password, salt);
-    await User.create({ username, email, password:hashedPassword });
+    await User.create({ username, email, password: hashedPassword });
     res.redirect("/");
   } catch (error) {
+    if(error instanceof mongoose.Error.ValidationError){
+      res.status(500).render('auth/signup-form', { errorMessage: error.message });
+      return
+    }
     next(error);
   }
 })
 
 
 // Login form render
-router.get('/login', isLoggedOut,(req, res) => {
+router.get('/login', isLoggedOut, (req, res) => {
   res.render('auth/login-form')
 })
 
@@ -49,20 +62,20 @@ router.get('/login', isLoggedOut,(req, res) => {
 // Login form controller. Check if user exists and check if password matches: bcrypt.compareSync
 // Login action -> req.session.currentUser = user
 router.post('/login', async (req, res, next) => {
-  try{
+  try {
     const { email, password } = req.body;
-    if(!email || !password) {
-      res.render('auth/login-form', { errorMessage: "Por favor rellena todos los campos."})
+    if (!email || !password) {
+      res.render('auth/login-form', { errorMessage: "Por favor rellena todos los campos." })
       return
     }
 
     const user = await User.findOne({ email });
-    if(!user){
-      res.render('auth/login-form', { errorMessage: "Usuario o contraseña incorrectos."});
+    if (!user) {
+      res.render('auth/login-form', { errorMessage: "Usuario o contraseña incorrectos." });
       return
     }
-    if(!bcrypt.compareSync(password, user.password)){
-      res.render('auth/login-form', { errorMessage: "Usuario o contraseña incorrectos."});
+    if (!bcrypt.compareSync(password, user.password)) {
+      res.render('auth/login-form', { errorMessage: "Usuario o contraseña incorrectos." });
       return
     }
 
@@ -70,7 +83,11 @@ router.post('/login', async (req, res, next) => {
     req.session.currentUser = user;
     res.redirect('/');
 
-  } catch(error){
+  } catch (error) {
+    if(error instanceof mongoose.Error.ValidationError){
+      res.status(500).render('auth/login-form', { errorMessage: error.message });
+      return
+    }
     next(error);
   }
 })

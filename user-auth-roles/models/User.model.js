@@ -18,7 +18,8 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true
+      required: true,
+      match: [/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/, 'Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.']
     }
   },
   {
