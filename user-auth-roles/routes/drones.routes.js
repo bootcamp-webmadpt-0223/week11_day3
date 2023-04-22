@@ -1,6 +1,5 @@
 const express = require('express');
 const Drone = require('../models/Drone.model');
-const Review = require('../models/Review.model');
 const router = express.Router();
 
 // require the Drone model here
