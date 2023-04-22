@@ -1,0 +1,9 @@
+<h2>Drone {{drone.name}} details</h2>
+{{>droneCard drone}}
+
+<b>REVIEWS:</b>
+<ul>
+  {{#each drone.reviews}}
+  <li>Text: {{this.text}} - Rate: {{this.rate}}</li>
+{{/each}}
+</ul>

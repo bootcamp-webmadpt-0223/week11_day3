@@ -1,0 +1,10 @@
+<h1>{{appTitle}} 🚀</h1>
+{{#if user}}
+  <div>
+    <p>Welcome {{user.username}}</p>
+    <a href="/auth/logout">Logout</a>
+  </div>
+  {{else}}
+  <p>Welcome Ironhacker! Please pay the course to see the content!</p>
+
+{{/if}}

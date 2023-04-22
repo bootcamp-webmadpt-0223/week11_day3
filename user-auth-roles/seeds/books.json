@@ -1,0 +1,26 @@
+[
+  {
+    "title": "The Catcher in the Rye",
+    "description": "The Catcher in the Rye is a novel written by J.D. Salinger, published in 1951. It follows the story of Holden Caulfield, a teenage boy who is kicked out of a prestigious boarding school and wanders around New York City. The book is known for its exploration of teenage angst, alienation, and the challenges of growing up.",
+    "author": "J.D. Salinger",
+    "rating": 4.2
+  },
+  {
+    "title": "To Kill a Mockingbird",
+    "description": "To Kill a Mockingbird is a Pulitzer Prize-winning novel written by Harper Lee, published in 1960. It is set in the American South during the 1930s and follows the story of Scout Finch, a young girl whose father, Atticus Finch, defends a black man accused of raping a white woman. The book deals with issues of racism, morality, and social injustice.",
+    "author": "Harper Lee",
+    "rating": 4.5
+  },
+  {
+    "title": "The Great Gatsby",
+    "description": "The Great Gatsby is a novel written by F. Scott Fitzgerald, published in 1925. It is set in the 1920s and follows the story of Jay Gatsby, a mysterious and wealthy man, and his love for the beautiful but unattainable Daisy Buchanan. The book explores themes of love, wealth, and the disillusionment of the American Dream.",
+    "author": "F. Scott Fitzgerald",
+    "rating": 4.0
+  },
+  {
+    "title": "Pride and Prejudice",
+    "description": "Pride and Prejudice is a novel written by Jane Austen, published in 1813. It follows the story of Elizabeth Bennet, a young woman in 19th-century England, and her romantic journey with Mr. Darcy. The book explores themes of love, marriage, and social class, and is known for its witty and satirical portrayal of society.",
+    "author": "Jane Austen",
+    "rating": 4.7
+  }
+]
