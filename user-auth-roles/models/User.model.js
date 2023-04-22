@@ -20,6 +20,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
       match: [/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/, 'Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.']
+    },
+    role: {
+      type: String,
+      enum: ["USER", "EDITOR", "ADMIN"],
+      default: 'USER'
     }
   },
   {
